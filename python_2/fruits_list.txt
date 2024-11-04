@@ -1,0 +1,5 @@
+The list of fruits you entered:
+1. Apple
+2. Orang
+3. Grape
+4. Starfruit
