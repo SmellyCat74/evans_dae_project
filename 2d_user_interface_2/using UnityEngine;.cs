@@ -1,33 +1,46 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour
+public class PauseManager : MonoBehaviour
 {
-    public Button startButton;
-    public Button settingsButton;
-    public Button quitButton;
+    public GameObject pauseMenuUI;
 
-    void Start()
+    private bool isPaused = false;
+
+    void Update()
     {
-        startButton.onClick.AddListener(StartGame);
-        settingsButton.onClick.AddListener(OpenSettings);
-        quitButton.onClick.AddListener(QuitGame);
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (isPaused)
+                Resume();
+            else
+                Pause();
+        }
     }
 
-    void StartGame()
+    public void Resume()
     {
-        SceneManager.LoadScene("GameScene"); // Change to your game scene name
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+        isPaused = false;
     }
 
-    void OpenSettings()
+    public void Pause()
     {
-        Debug.Log("Open Settings - Implement Settings Panel Here");
+        pauseMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+        isPaused = true;
     }
 
-    void QuitGame()
+    public void LoadMainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(0); // Replace 0 with your main menu scene index
+    }
+
+    public void QuitGame()
     {
         Application.Quit();
-        Debug.Log("Game Quit");
     }
 }

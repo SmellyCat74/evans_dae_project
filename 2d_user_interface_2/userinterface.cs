@@ -1,33 +1,20 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
-public class MainMenu : MonoBehaviour
+public class GoToPreviousScene : MonoBehaviour
 {
-    public Button startButton;
-    public Button settingsButton;
-    public Button quitButton;
-
-    void Start()
+    public void OnClick()
     {
-        startButton.onClick.AddListener(StartGame);
-        settingsButton.onClick.AddListener(OpenSettings);
-        quitButton.onClick.AddListener(QuitGame);
-    }
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int previousSceneIndex = currentSceneIndex - 1;
 
-    void StartGame()
-    {
-        SceneManager.LoadScene("GameScene"); // Change to your game scene name
-    }
-
-    void OpenSettings()
-    {
-        Debug.Log("Open Settings - Implement Settings Panel Here");
-    }
-
-    void QuitGame()
-    {
-        Application.Quit();
-        Debug.Log("Game Quit");
+        if (previousSceneIndex >= 0)
+        {
+            SceneManager.LoadScene(previousSceneIndex);
+        }
+        else
+        {
+            Debug.LogWarning("No previous scene to load.");
+        }
     }
 }
